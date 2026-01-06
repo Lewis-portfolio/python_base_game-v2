@@ -5,7 +5,10 @@ The game needs this to run. '''
 
 import os
 os.path.join(os.getcwd(), os.path.dirname(os.path.abspath(__file__)))
-from python_files.file_importer import PG, dev_settings, sys, Defaults, colours
+from ..file_importer import PG, dev_settings, sys, Defaults, colours
+from .debug_class import DebuggingClass
+from .object_classes.player_class import PlayerClass
+from .object_classes.base_object_class import BaseObjectClass
 
 class GameClass():
     """ The main class for my game. """
@@ -15,6 +18,9 @@ class GameClass():
         PG.mixer.init()
         self.screen = PG.display.set_mode((Defaults.WIDTH, Defaults.HEIGHT))
         PG.display.set_caption(dev_settings.TITLE)
+        # Initialises the sub classes:
+        self.debug_class = DebuggingClass(self)
+        self.player = None
         # Ready for updates:
         self.clock = PG.time.Clock()
         self.running = True
@@ -26,6 +32,7 @@ class GameClass():
     def new_game(self):
         """ Starts a new game. """
         self.all_sprites = PG.sprite.Group()
+        self.player = PlayerClass(self, (2, 3))
         self.run_game()
 
 
@@ -51,11 +58,23 @@ class GameClass():
                 if self.playing:
                     self.playing = False
                 self.running = False
+            if event.type == PG.KEYDOWN:
+                if event.key == PG.K_ESCAPE:
+                    self.quit_game()
+                if event.key == PG.K_LEFT:
+                    self.player.move(dx = -1)
+                if event.key == PG.K_RIGHT:
+                    self.player.move(dx = 1)
+                elif event.key == PG.K_UP:
+                    self.player.move(dy = -1)
+                elif event.key == PG.K_DOWN:
+                    self.player.move(dy = 1)
 
 
     def game_draw(self):
         """ Used for drawing the game. Executed at the end of every frame. """
         self.screen.fill(colours.BLACK)
+        self.debug_class.draw_grid()
         self.all_sprites.draw(self.screen)
 
         # Right at the end:

@@ -3,7 +3,6 @@
 ''' This is the executable file. '''
 
 # Imports:
-# from python_files import file_importer as FI
 from python_files.file_importer import GameClass
 
 # Main lines:

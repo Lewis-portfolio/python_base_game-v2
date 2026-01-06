@@ -7,8 +7,7 @@ While this basic game is a work in progress it's easier to use if the user has k
 
 # Required modules:
 Below is the current list of the required modules that you'll need to install via pip:  
-1. pygame
-<br>
+1. pygame  
 
 Below is the inbuilt modules that pygame should already have:  
 1. OS  

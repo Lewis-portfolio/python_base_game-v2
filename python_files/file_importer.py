@@ -15,3 +15,4 @@ from .misc_files import dev_settings
 
 # Class imports:
 from .classes.game_class import GameClass
+from .classes.debug_class import DebuggingClass
