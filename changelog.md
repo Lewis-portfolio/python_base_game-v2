@@ -1,4 +1,15 @@
-# Changes on 27, 12, 2029:
+# Changes on 16, 01, 2026:
+### Overview:
+I fixed a typo, updated the readme, and removed an old system.
+### Added:
+Nothing.
+### Changed:
+Fixed the date of the previous changelog. Correcting it to the correct year.  
+Updated the read me.
+### Removed:
+Removed the old changelog system as it's no longer going to be used.
+##
+# Changes on 27, 12, 2025:
 Added, changed and removed things in this update.
 Also forgot to push it to github.
 ### Added:
