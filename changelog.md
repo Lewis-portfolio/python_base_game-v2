@@ -1,3 +1,33 @@
+# Changes on 20, 01, 2026:
+### Overview:
+Alot has changed in this update. So far the Obstacles have no collisions.
+### Added:
+- #### Classes:
+  - Added a new class for Obstacles along with it's calling in the game class.
+  - Game class:
+    - Added a line to make sure that the player doesn't have to spam keys to move.
+    - Added a couple comments in areas to help with information.
+  - Base object class:
+    - Added a set color function to set a color of a sprite (might have to change behaviour later)
+### Changed:
+- #### Classes:
+  - Player class:
+    - The spacing in the parameters with defaults.
+  - Game class:
+    - Changed how the keybinds work so that the player can use both the arrow keys and WASD keys depending on their preference.
+      - This is subject to change on how a dev or player could change keybinds.
+  - Base object class:
+    - The following changes were required to allow for larger and diffrent shaped sprites
+      - correting the set image definition to default dimensions to None
+      - Checking if the image is an instance of a surface before applying a fill - Might need to edit this behaviour in the future.
+- Misc:
+  - Changed where the groups are located (in individual classes)
+
+### Removed:
+Removed an unnessicary call of the base object class in the game class.  
+Removed an unnessicary dimensions parameter in the initialiser of the base object class and player class. 
+##
+
 # Changes on 16, 01, 2026:
 ### Overview:
 I fixed a typo, updated the readme, and removed an old system.

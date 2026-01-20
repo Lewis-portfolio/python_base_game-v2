@@ -8,7 +8,7 @@ os.path.join(os.getcwd(), os.path.dirname(os.path.abspath(__file__)))
 from ..file_importer import PG, dev_settings, sys, Defaults, colours
 from .debug_class import DebuggingClass
 from .object_classes.player_class import PlayerClass
-from .object_classes.base_object_class import BaseObjectClass
+from .object_classes.obstacle_class import ObsticalClass
 
 class GameClass():
     """ The main class for my game. """
@@ -23,16 +23,21 @@ class GameClass():
         self.player = None
         # Ready for updates:
         self.clock = PG.time.Clock()
+        PG.key.set_repeat(500, 100)  # So the player can hold the key and not spam it.
         self.running = True
         self.playing = True
         # Groups:
-        self.all_sprites = None
+        self.all_sprites = PG.sprite.Group()
+        self.obsticles = PG.sprite.Group()
 
 
     def new_game(self):
         """ Starts a new game. """
-        self.all_sprites = PG.sprite.Group()
         self.player = PlayerClass(self, (2, 3))
+        ObsticalClass(self, (0, 0), dimensions=(32, Defaults.HEIGHT))
+        ObsticalClass(self, (dev_settings.GRIDWIDTH - 1, 0), dimensions=(32, Defaults.HEIGHT))
+        ObsticalClass(self, (1, 0), dimensions=(Defaults.WIDTH - 64, 32))
+        ObsticalClass(self, (1, dev_settings.GRIDHEIGHT - 1), dimensions=(Defaults.WIDTH - 64, 32))
         self.run_game()
 
 
@@ -53,21 +58,21 @@ class GameClass():
     def game_events(self):
         """ Used for game event updates. """
         for event in PG.event.get():
-            # Checks if the window is closing:
-            if event.type == PG.QUIT:
+            if event.type == PG.QUIT:  # Checks if the window is closing
                 if self.playing:
                     self.playing = False
                 self.running = False
+            # Below are the player controls - (Subject to change):
             if event.type == PG.KEYDOWN:
-                if event.key == PG.K_ESCAPE:
+                if event.key == PG.K_ESCAPE:  # Checks if the player wants to quit.
                     self.quit_game()
-                if event.key == PG.K_LEFT:
+                if event.key in [PG.K_LEFT, PG.K_a]:
                     self.player.move(dx = -1)
-                if event.key == PG.K_RIGHT:
+                if event.key in [PG.K_RIGHT, PG.K_d]:
                     self.player.move(dx = 1)
-                elif event.key == PG.K_UP:
+                elif event.key in [PG.K_UP, PG.K_w]:
                     self.player.move(dy = -1)
-                elif event.key == PG.K_DOWN:
+                elif event.key in [PG.K_DOWN, PG.K_s]:
                     self.player.move(dy = 1)
 
 

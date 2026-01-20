@@ -11,14 +11,13 @@ from ...file_importer import PG, dev_settings, colours
 
 class BaseObjectClass(PG.sprite.Sprite):
     """ The basics of every object in the game. """
-    def __init__(self, game_class, coordinates, img = None, dimensions = None):
-        self.groups = game_class.all_sprites
+    def __init__(self, game_class, coordinates, colour, img = None):
         PG.sprite.Sprite.__init__(self, self.groups)
         self.game = game_class
         # For images:
-        self.image = self.set_image(image=img, dimensions=dimensions)
-        if img is None:
-            self.image.fill(colours.BEEFBLUE)
+        self.image = self.set_image(image=img)
+        if isinstance(self.image, PG.surface.Surface):  # Might need to edit behaviour.
+            self.image.fill(colour)
         # For rect and location:
         self.rect = self.image.get_rect()
         self.x, self.y = coordinates[0], coordinates[1]
@@ -26,7 +25,14 @@ class BaseObjectClass(PG.sprite.Sprite):
         self.rect.y = self.y * dev_settings.TILESIZE
 
 
-    def set_image(self, image, dimensions):
+    def set_colour(self, col=None):  # Might need to edit behaviour.
+        """ Checks if there is a requested colour,
+        before returning it."""
+        if col is None:
+            col = colours.BEEFBLUE
+        return col
+
+    def set_image(self, image, dimensions=None):
         """ Sets the image of the sprite. """
         if image is not None:
             c_image = image
